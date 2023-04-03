@@ -1,9 +1,9 @@
 package com.example.MySelenium;
 
-import org.junit.Before;
+
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.JavascriptExecutor;
@@ -28,6 +28,18 @@ class MySeleniumApplicationTests {
 	private WebDriver driver;
 	private WebDriverWait wait;
 	private JavascriptExecutor js;
+
+	@BeforeEach
+	public void setUp(){
+		System.setProperty("webdriver.chrome.driver", "C:/WebDrivers/chromedriver.exe");
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--remote-allow-origins=*");
+		driver = new ChromeDriver(options);
+		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		driver.get("https://www.svtplay.se/");
+		driver.manage().window().maximize();
+
+	}
 
 
 
@@ -223,7 +235,7 @@ class MySeleniumApplicationTests {
 
 		assertEquals(expected,actual);
 	}
-	@After
+	@AfterEach
 	public void tearDown(){
 		driver.close();
 		driver.quit();
@@ -303,8 +315,7 @@ class MySeleniumApplicationTests {
 
 		assertEquals(expected,actual);
 
-		driver.close();
-		driver.quit();
+
 	}
 
 	@Test
