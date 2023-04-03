@@ -1,5 +1,6 @@
 package com.example.MySelenium;
 
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.After;
 import org.junit.Before;
@@ -27,7 +28,6 @@ class MySeleniumApplicationTests {
 	private WebDriver driver;
 	private WebDriverWait wait;
 	private JavascriptExecutor js;
-
 
 
 
@@ -212,6 +212,7 @@ class MySeleniumApplicationTests {
 	@Test
 	void countTheGenres () throws InterruptedException {
 
+		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		waitClick(By.cssSelector("[class='sc-5b00349a-2 fuGbXH sc-4f221cd2-9 hEiUxP']"));
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("[class='sc-4f221cd2-1 fHHyBJ']")));
 		waitClick(By.cssSelector("a[href=\"/program\"]"));
