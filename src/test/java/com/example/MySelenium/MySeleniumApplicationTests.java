@@ -31,7 +31,7 @@ class MySeleniumApplicationTests {
 
 	@BeforeEach
 	public void setUp() {
-		System.setProperty("webdriver.chrome.driver", "C:/WebDrivers/chromedriver.exe/");
+		System.setProperty("webdriver.chrome.driver", "C:/MySelenium/chromedriver.exe/");
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--remote-allow-origins=*");
 		driver = new ChromeDriver(options);
