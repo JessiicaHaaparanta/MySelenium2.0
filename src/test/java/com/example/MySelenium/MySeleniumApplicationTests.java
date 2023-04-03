@@ -1,6 +1,9 @@
 package com.example.MySelenium;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.After;
+import org.junit.Before;
+import org.openqa.selenium.By;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -20,6 +23,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class MySeleniumApplicationTests {
+
+	private WebDriver driver;
+	private WebDriverWait wait;
+	private JavascriptExecutor js;
 
 
 
@@ -203,11 +210,40 @@ class MySeleniumApplicationTests {
 	}
 
 	@Test
-	void testClickToProgram () {
+	void countTheGenres () throws InterruptedException {
 
+		waitClick(By.cssSelector("[class='sc-5b00349a-2 fuGbXH sc-4f221cd2-9 hEiUxP']"));
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("[class='sc-4f221cd2-1 fHHyBJ']")));
+		waitClick(By.cssSelector("a[href=\"/program\"]"));
 
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("article[data-rt*=\"promo\"]")));
+		int actual = driver.findElements(By.cssSelector("article[data-rt*=\"promo\"]")).size();
+		int expected = 17;
 
+		assertEquals(expected,actual);
 	}
+	@After
+	public void tearDown(){
+		driver.close();
+		driver.quit();
+	}
+	private void waitClick(By by){
+		WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(by));
+		element.click();
+	}
+	private void scrollBy(String input){
+		js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollTo(0, " + input +")");
+	}
+	private String waitForText(By by){
+		WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(by));
+		return element.getText();
+	}
+	private void sendKeys(By by,String text){
+		WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated((by)));
+		element.sendKeys(text);
+	}
+
 
 	@Test
 	void testAcessabillityKids() {
